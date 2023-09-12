@@ -1,0 +1,18 @@
+td {
+    max-width: 100px;
+    word-wrap: break-word;
+    text-align: center;
+}
+
+th {
+    text-align: center;
+}
+
+.date-div {
+  display: flex;
+  flex-direction: column;
+}
+
+.fake-href {
+  cursor: pointer
+}
