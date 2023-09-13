@@ -20,6 +20,13 @@
         [ngClass]="{ show: isExpanded }"
       >
         <ul class="navbar-nav flex-grow">
+          <ng-container *ngIf="isAuthenticated(); then myUrls"></ng-container>
+          <li
+            class="nav-item"
+            [routerLinkActive]="['link-active']"
+          >
+            <a class="nav-link text-dark" [routerLink]="['/about']">About</a>
+          </li>
           <li
             class="nav-item"
             [routerLinkActive]="['link-active']"
@@ -27,11 +34,7 @@
           >
             <a class="nav-link text-dark" [routerLink]="['/']">Urls</a>
           </li>
-          <li class="nav-item" [routerLinkActive]="['link-active']">
-            <a class="nav-link text-dark" [routerLink]="['/login']"
-              >Login</a
-            >
-          </li>
+          <ng-container *ngIf="isAuthenticated(); then logout else login"></ng-container>
         </ul>
       </div>
     </div>
@@ -41,15 +44,26 @@
 <ng-template #login>
   <li class="nav-item" [routerLinkActive]="['link-active']">
     <a class="nav-link text-dark" [routerLink]="['/login']"
-      >Login</a
-    >
+      >Login</a>
   </li>
 </ng-template>
 
 <ng-template #logout>
   <li class="nav-item" [routerLinkActive]="['link-active']">
-    <a class="nav-link text-dark" [routerLink]="['/logout']"
-      >Logout</a
-    >
+    <div class="d-flex align-items-center">
+      <div class="ml-3 mr-0">
+        <p class="username">({{getUsername()}})</p>
+      </div>
+      <div class="ml-0 mr-2">
+        <a class="nav-link text-dark ml-0 mr-2" [routerLink]="['/logout']">Logout</a>
+      </div>
+    </div>
+  </li>
+</ng-template>
+
+<ng-template #myUrls>
+  <li class="nav-item" [routerLinkActive]="['link-active']">
+    <a class="nav-link text-dark" [routerLink]="['/my']"
+      >My Urls</a>
   </li>
 </ng-template>

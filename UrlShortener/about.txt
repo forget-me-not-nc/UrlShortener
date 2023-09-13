@@ -1,0 +1,1 @@
+The algorithm uses a simple set of symbols and randomly generates a sequence of 7 symbols. :)

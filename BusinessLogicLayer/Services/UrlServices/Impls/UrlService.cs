@@ -6,7 +6,6 @@ using BusinessLogicLayer.Services.UserServices;
 using DataAccessLayer.Entities;
 using System.ComponentModel.Design;
 using BusinessLogicLayer.Services.UrlShortenerServices;
-using BusinessLogicLayer.Services.AliasServices;
 
 namespace BusinessLogicLayer.Services.UserServices.Impls
 {
@@ -17,15 +16,13 @@ namespace BusinessLogicLayer.Services.UserServices.Impls
         private readonly IUserService _userService;
         private readonly IUtilsService _utils;
         private readonly IUrlShortenerService _urlShortenerService;
-        private readonly IAliasService _aliasService;
 
         public UrlService(
             IUrlRepo urlRepo,
             IMapper mapper,
             IUserService userService,
             IUtilsService utils,
-            IUrlShortenerService urlShortenerService,
-            IAliasService aliasService
+            IUrlShortenerService urlShortenerService
             )
         {
             _urlRepo = urlRepo;
@@ -33,7 +30,6 @@ namespace BusinessLogicLayer.Services.UserServices.Impls
             _userService = userService;
             _utils = utils;
             _urlShortenerService = urlShortenerService;
-            _aliasService = aliasService;
         }
 
         public async Task<UrlResponse> CreateAsync(UrlCreateRequest entity)
@@ -41,14 +37,18 @@ namespace BusinessLogicLayer.Services.UserServices.Impls
             if (await GetUrlByBaseUrl(entity.BaseUrl) != null)
                 throw new Exception("Url already exist.");
 
-            if(await _aliasService.GetAsync(entity.AliasId) == null)
-                throw new Exception("Invalid alias.");
-
             var newUrl = _mapper.Map<Url>(entity);
 
             newUrl.UserId = _utils.GetUserIdFromClaims();
 
-            newUrl.Slug = _urlShortenerService.Reduce(entity.AliasId);
+            string slug;
+            do
+            {
+                slug = _urlShortenerService.CreateShortUrl();
+
+            } while (await GetUrlBySlug(slug) != null);
+
+            newUrl.Slug = slug;
 
             newUrl = await _urlRepo.CreateAsync(newUrl);
 
@@ -104,19 +104,34 @@ namespace BusinessLogicLayer.Services.UserServices.Impls
             return _mapper.Map<UrlResponse>(url);
         }
 
-        public async Task<UrlResponse> GetUrlBySlugAndAlias(string slug, int aliasId)
+        public async Task<UrlResponse> GetUrlBySlug(string slug)
         {
-            var url = await _urlRepo.GetUrlBySlugAndAlias(slug, aliasId);
+            var url = await _urlRepo.GetUrlBySlug(slug);
 
             return _mapper.Map<UrlResponse>(url);
         }
 
+        public async Task<List<UrlResponse>> GetUrlsByUserId(int userId)
+        {
+            var urls = await _urlRepo.GetUrslByUserId(userId);
+
+            var infos = new List<UrlResponse>();
+
+            foreach (var el in urls)
+            {
+                var info = await GetFullUrlInfo(el.Id);
+                infos.Add(info);
+            }
+
+            return infos;
+        }
+
         public async Task<UrlResponse> UpdateAsync(UrlUpdateRequest entity)
         {
-            if (await GetUrlByBaseUrl(entity.BaseUrl) != null)
-                throw new Exception("Url already exist.");
-
             var oldUrl = await _urlRepo.GetByIdAsync(entity.Id);
+
+            if (await GetUrlByBaseUrl(entity.BaseUrl) != null && oldUrl.BaseUrl != entity.BaseUrl)
+                throw new Exception("Url already exist.");
 
             oldUrl.BaseUrl = entity.BaseUrl;
             oldUrl.Description = entity.Description;

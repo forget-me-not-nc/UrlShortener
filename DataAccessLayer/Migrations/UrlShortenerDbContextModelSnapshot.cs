@@ -22,24 +22,6 @@ namespace DataAccessLayer.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
-            modelBuilder.Entity("DataAccessLayer.Entities.Alias", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<string>("AliasSlug")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("aliases", (string)null);
-                });
-
             modelBuilder.Entity("DataAccessLayer.Entities.Role", b =>
                 {
                     b.Property<int>("Id")
@@ -77,9 +59,6 @@ namespace DataAccessLayer.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<int>("AliasId")
-                        .HasColumnType("int");
-
                     b.Property<string>("BaseUrl")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -101,8 +80,6 @@ namespace DataAccessLayer.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("AliasId");
 
                     b.HasIndex("UserId");
 
@@ -146,19 +123,11 @@ namespace DataAccessLayer.Migrations
 
             modelBuilder.Entity("DataAccessLayer.Entities.Url", b =>
                 {
-                    b.HasOne("DataAccessLayer.Entities.Alias", "Alias")
-                        .WithMany("Urls")
-                        .HasForeignKey("AliasId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("DataAccessLayer.Entities.User", "User")
                         .WithMany("Urls")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Alias");
 
                     b.Navigation("User");
                 });
@@ -176,11 +145,6 @@ namespace DataAccessLayer.Migrations
                         .HasForeignKey("UsersId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("DataAccessLayer.Entities.Alias", b =>
-                {
-                    b.Navigation("Urls");
                 });
 
             modelBuilder.Entity("DataAccessLayer.Entities.User", b =>

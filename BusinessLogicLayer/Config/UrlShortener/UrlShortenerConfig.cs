@@ -9,6 +9,7 @@ namespace BusinessLogicLayer.Config.UrlShortener
     internal static class UrlShortenerConfig
     {
         internal static int NUM_CHARS_SHORT_LINK = 7;
-        internal static string ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+|";
+        internal static string ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+        internal static string DOMAIN = "http://localhost:5185/";
     }
 }

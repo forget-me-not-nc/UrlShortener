@@ -1,0 +1,7 @@
+.custom-area {
+  resize: none;
+}
+
+.custom-area:active {
+  border: none;
+}

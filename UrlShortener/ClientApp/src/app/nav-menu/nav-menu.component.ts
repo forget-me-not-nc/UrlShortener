@@ -1,23 +1,25 @@
-import { Component, OnInit } from '@angular/core';
-import { NgxPermissionsService } from 'ngx-permissions';
-import { PermissionService } from '../services/permission.service';
+import { Component } from '@angular/core';
+import { MyRoleService } from '../services/role.service';
+import { MyLocalStorageService } from '../services/my.local.storage.service';
+import { LocalStorageConfig } from '../config/local.storage.config';
 
 @Component({
   selector: 'app-nav-menu',
   templateUrl: './nav-menu.component.html',
   styleUrls: ['./nav-menu.component.css']
 })
-export class NavMenuComponent implements OnInit {
+export class NavMenuComponent{
   isExpanded = false;
   
-  constructor(
-    public permissionsService: NgxPermissionsService,
-    private myPermissionsService: PermissionService
-    ) {}
+  constructor(private roleService: MyRoleService,
+              private localStorageService: MyLocalStorageService) {}
 
-  ngOnInit(): void {
-    const roles = this.myPermissionsService.getRoles();
-    this.permissionsService.loadPermissions(roles)
+  isAuthenticated(): boolean {
+    return this.roleService.isAuthenticated();
+  }
+
+  getUsername(): string {
+    return this.localStorageService.get(LocalStorageConfig.USERNAME);
   }
 
   collapse() {

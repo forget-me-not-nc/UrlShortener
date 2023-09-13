@@ -15,7 +15,8 @@ namespace BusinessLogicLayer.Services.UrlServices
         Task<UrlResponse> CreateAsync(UrlCreateRequest entity);
         Task DeleteAsync(int id);
         Task<UrlResponse> GetFullUrlInfo(int id);
-        Task<UrlResponse> GetUrlBySlugAndAlias(string slug, int aliasId);
+        Task<UrlResponse> GetUrlBySlug(string slug);
+        Task<List<UrlResponse>> GetUrlsByUserId(int userId);
 
         Task<UrlResponse> GetUrlByBaseUrl(string baseUrl);
     }

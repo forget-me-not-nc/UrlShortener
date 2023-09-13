@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using BusinessLogicLayer.DTOs.AliasDTOs;
+using BusinessLogicLayer.Config.UrlShortener;
 using BusinessLogicLayer.DTOs.Auth;
 using BusinessLogicLayer.DTOs.RolesDTOs;
 using BusinessLogicLayer.DTOs.UrlDTOs;
@@ -16,8 +16,7 @@ namespace BusinessLogicLayer.Config.Automapper
         {
             CreateMap<Url, UrlResponse>()
                 .ForMember(m => m.UserName, opt => opt.MapFrom(x => x.User.Username))
-                .ForMember(m => m.AliasSlug, opt => opt.MapFrom(x => x.Alias.AliasSlug))
-                .ForMember(m => m.AliasSlug, opt => opt.MapFrom(x => x.Alias.AliasSlug));
+                .ForMember(m => m.Domain, opt => opt.MapFrom(x => UrlShortenerConfig.DOMAIN));
 
             CreateMap<UrlUpdateRequest, Url>()
                 .ForMember(m => m.ModifiedAt, opt => opt.MapFrom(x => DateTime.Now));
@@ -46,13 +45,6 @@ namespace BusinessLogicLayer.Config.Automapper
                 opt => opt.MapFrom(x => x.Name.ToString()));
 
         }
-
-        private void AliasesMapper()
-        {
-            CreateMap<Alias, AliasResponse>();
-            CreateMap<AliasCreateRequest, Alias>();
-            CreateMap<AliasUpdateRequest, Alias>();
-        }
         private void CustomDTOMapper()
         {
             CreateMap<TokenResponse, LoginResponse>();
@@ -63,7 +55,6 @@ namespace BusinessLogicLayer.Config.Automapper
             UrlsMapper();
             UsersMapper();
             RolesMapper();
-            AliasesMapper();
             CustomDTOMapper();
         }
     }

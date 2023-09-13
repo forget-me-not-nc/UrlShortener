@@ -8,7 +8,6 @@ namespace DataAccessLayer.DbSettings
     {
         public DbSet<User> Users { get; set; }
         public DbSet<Url> Urls { get; set; }
-        public DbSet<Alias> Aliases { get; set; }
         public DbSet<Role> Roles { get; set; }
 
         public UrlShortenerDbContext(DbContextOptions<UrlShortenerDbContext> options) : base(options) { }
@@ -20,7 +19,6 @@ namespace DataAccessLayer.DbSettings
             modelBuilder.ApplyConfiguration(new UserConfig());
             modelBuilder.ApplyConfiguration(new RoleConfig());
             modelBuilder.ApplyConfiguration(new UrlConfig());
-            modelBuilder.ApplyConfiguration(new AliasConfig());
         }
     }
 }

@@ -1,0 +1,29 @@
+td {
+    max-width: 100px;
+    word-wrap: break-word;
+    text-align: center;
+}
+
+th {
+    text-align: center;
+}
+
+.date-div {
+  display: flex;
+  flex-direction: column;
+}
+
+.fake-href {
+  cursor: pointer
+}
+
+.hover-active:hover {
+  color: gray;
+}
+
+.action-container {
+  height: 100%;
+  display: flex;
+  justify-content: center; 
+  align-items: center;
+}

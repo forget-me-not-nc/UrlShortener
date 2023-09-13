@@ -9,7 +9,6 @@ namespace BusinessLogicLayer.DTOs.UrlDTOs
     public class UrlCreateRequest
     {
         public string BaseUrl { get; set; }
-        public int AliasId { get; set; }
         public string Description { get; set; }
     }
 }

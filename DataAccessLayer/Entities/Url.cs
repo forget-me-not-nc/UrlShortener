@@ -13,8 +13,6 @@ namespace DataAccessLayer.Entities
         public User User { get; set; }
         public string BaseUrl { get; set; }
         public string Slug { get; set; }
-        public int AliasId { get; set; }
-        public Alias Alias { get; set; }
         public DateTime CreatedAt { get; set; }
         public DateTime ModifiedAt { get; set; }
         public string Description { get; set; }

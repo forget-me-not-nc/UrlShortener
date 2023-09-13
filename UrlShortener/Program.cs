@@ -1,7 +1,7 @@
 using BusinessLogicLayer.Config.Automapper;
 using BusinessLogicLayer.Services;
-using BusinessLogicLayer.Services.AliasServices;
-using BusinessLogicLayer.Services.AliasServices.Impls;
+using BusinessLogicLayer.Services.AboutServices;
+using BusinessLogicLayer.Services.AboutServices.Impls;
 using BusinessLogicLayer.Services.AuthServices;
 using BusinessLogicLayer.Services.AuthServices.Impls;
 using BusinessLogicLayer.Services.RedirectServices;
@@ -14,8 +14,6 @@ using BusinessLogicLayer.Services.UrlShortenerServices.Impls;
 using BusinessLogicLayer.Services.UserServices;
 using BusinessLogicLayer.Services.UserServices.Impls;
 using DataAccessLayer.DbSettings;
-using DataAccessLayer.Repos.AliasRepos;
-using DataAccessLayer.Repos.AliasRepos.Impls;
 using DataAccessLayer.Repos.RoleRepos;
 using DataAccessLayer.Repos.RoleRepos.Impls;
 using DataAccessLayer.Repos.UrlsRepos;
@@ -65,14 +63,12 @@ builder.Services.AddScoped<IUserRepo, UserRepo>();
 builder.Services.AddScoped<IRoleService, RoleService>();
 builder.Services.AddScoped<IRoleRepo, RoleRepo>();
 
-builder.Services.AddScoped<IAliasService, AliasService>();
-builder.Services.AddScoped<IAliasRepo, AliasRepo>();
-
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IUtilsService, UtilsService>();
 
 builder.Services.AddScoped<IUrlShortenerService, UrlShortenerService>();
 builder.Services.AddScoped<IRedirectService, RedirectService>();
+builder.Services.AddScoped<IAboutService, AboutService>();
 
 builder.Services.AddHttpContextAccessor();
 
@@ -101,7 +97,9 @@ app.UseAuthentication();
 app.UseAuthorization();
 app.UseEndpoints(endpoints =>
 {
-    endpoints.MapControllers();
+    endpoints.MapControllerRoute(
+        name: "default",
+        pattern: "{controller=Redirect}/{action=Index}/{id?}");
 });
 
 app.MapFallbackToFile("index.html"); ;

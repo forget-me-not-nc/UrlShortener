@@ -1,0 +1,3 @@
+<app-urls-table [urls]="list" [showActions]="false">
+</app-urls-table>
+<app-create-dialog *ngxPermissionsOnly="Roles.USER" (updateListEvent)="updateList($event)"></app-create-dialog>

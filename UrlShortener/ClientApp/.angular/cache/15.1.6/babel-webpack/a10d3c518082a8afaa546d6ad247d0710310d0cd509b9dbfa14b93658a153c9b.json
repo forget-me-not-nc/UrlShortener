@@ -1,0 +1,1 @@
+{"ast":null,"code":"export class AboutModel {}","map":{"version":3,"mappings":"AAAA,OAAM,MAAOA,UAAU","names":["AboutModel"],"sourceRoot":"","sources":["D:\\Inforce\\UrlShortener\\UrlShortener\\ClientApp\\src\\app\\models\\about.model.ts"],"sourcesContent":["export class AboutModel {\r\n  content: string;\r\n}"]},"metadata":{},"sourceType":"module","externalDependencies":[]}

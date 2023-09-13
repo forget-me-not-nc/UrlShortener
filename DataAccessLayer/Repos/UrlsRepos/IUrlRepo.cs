@@ -11,7 +11,8 @@ namespace DataAccessLayer.Repos.UrlsRepos
     {
         Task<Url> GetFullUrlInfo(int id);
         Task<Url> GetUrlByBaseUrl(string baseUrl);
-    
-        Task<Url> GetUrlBySlugAndAlias(string slug, int aliasId);
+
+        Task<List<Url>> GetUrslByUserId(int userId);
+        Task<Url> GetUrlBySlug(string slug);
     }
 }

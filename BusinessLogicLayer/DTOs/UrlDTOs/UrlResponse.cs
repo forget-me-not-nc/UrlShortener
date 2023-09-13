@@ -14,7 +14,7 @@ namespace BusinessLogicLayer.DTOs.UrlDTOs
         public string UserName { get; set; }
         public string BaseUrl { get; set; }
         public string Slug { get; set; }
-        public string AliasSlug { get; set; }
+        public string Domain { get; set; }
         public DateTime CreatedAt { get; set; }
         public DateTime ModifiedAt { get; set; }
         public string Description { get; set; }

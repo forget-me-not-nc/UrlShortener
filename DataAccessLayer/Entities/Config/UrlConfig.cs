@@ -26,10 +26,6 @@ namespace DataAccessLayer.Entities.Config
             builder.Property(x => x.CreatedAt)
                 .IsRequired();
 
-            builder.HasOne(x => x.Alias)
-                .WithMany(x => x.Urls)
-                .HasForeignKey(x => x.AliasId);
-
             builder.Property(x => x.Slug)
                 .IsRequired();
         }

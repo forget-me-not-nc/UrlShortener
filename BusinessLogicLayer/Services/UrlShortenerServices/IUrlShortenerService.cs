@@ -8,9 +8,7 @@ namespace BusinessLogicLayer.Services.UrlShortenerServices
 {
     public interface IUrlShortenerService
     {
-        public string Reduce(int aliasId);
-        public string EncodeAliasId(int aliasId);
-        public int DecodeAliasId(string reducedUrl);
+        public string CreateShortUrl();
 
     }
 }

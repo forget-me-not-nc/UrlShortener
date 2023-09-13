@@ -29,6 +29,20 @@ namespace UrlShortener.Controllers
             }
         }
 
+        [HttpGet("user/{id}")]
+        [Authorize(Roles = "USER")]
+        public async Task<ActionResult<IEnumerable<UrlResponse>>> GetAllByUserId(int id)
+        {
+            try
+            {
+                return Ok(await _urlService.GetUrlsByUserId(id));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
         [HttpGet("{id}")]
         [Authorize(Roles = "USER")]
         public async Task<ActionResult<UrlResponse>> GetById(int id)

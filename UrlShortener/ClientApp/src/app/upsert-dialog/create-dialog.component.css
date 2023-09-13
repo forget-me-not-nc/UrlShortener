@@ -1,0 +1,11 @@
+.custom-input {
+  outline: none;
+  box-shadow: none;
+  border: 1px solid #ced4da;
+  flex: 1;
+}
+
+.error-msg {
+  font-weight: 700;
+  color: red;
+}

@@ -1,5 +1,4 @@
 ﻿using BusinessLogicLayer.Services;
-using BusinessLogicLayer.Services.AliasServices;
 using BusinessLogicLayer.Services.RedirectServices;
 using BusinessLogicLayer.Services.UrlServices;
 using BusinessLogicLayer.Services.UrlShortenerServices;
@@ -9,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace UrlShortener.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("")]
     public class RedirectController: ControllerBase
     {
         private readonly IRedirectService _redirectService;
