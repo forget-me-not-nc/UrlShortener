@@ -15,8 +15,8 @@
       <td>{{ i + 1}}</td>
       <td *ngxPermissionsOnly="Roles.ADMIN">{{ url.id }}</td>
       <td *ngxPermissionsOnly="Roles.USER">{{ url.userName }}</td>
-      <td><a [href]="url.baseUrl">{{ url.baseUrl }}</a></td>
-      <td><a [href]="generateRedirect(url.slug)" class="fake-href">{{ generateRedirect(url.slug) }}</a></td>
+      <td><a target="_blank" [href]="url.baseUrl">{{ url.baseUrl }}</a></td>
+      <td><a target="_blank"  [href]="generateRedirect(url.slug)" class="fake-href">{{ generateRedirect(url.slug) }}</a></td>
       <td *ngxPermissionsOnly="Roles.USER">{{ url.description }}</td>
       <td *ngxPermissionsOnly="Roles.USER">
         <div>
